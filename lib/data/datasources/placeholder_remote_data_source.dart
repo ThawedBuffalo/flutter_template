@@ -18,7 +18,7 @@ class PlaceholderRemoteDataSource
   PlaceholderRemoteDataSource({required this.client});
 
   @override
-  Future<PlaceholderModel> getRemotePlaceholderData(
+  Future<PlaceholderModel> getRemotePlaceholderDataWithParam(
       String placeholderParam) async {
     Map data = {'placeholderParam': placeholderParam};
 
@@ -47,5 +47,11 @@ class PlaceholderRemoteDataSource
       CustomLogger.loggerNoStack.e('server exception thrown: ' + e.toString());
       throw PlaceholderException();
     }
+  }
+
+  @override
+  Future<PlaceholderModel> getRemotePlaceholderDataWithoutParam() {
+    // TODO: implement getRemotePlaceholderDataWithoutParam
+    throw UnimplementedError();
   }
 }

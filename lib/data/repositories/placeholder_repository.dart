@@ -17,11 +17,11 @@ class PlaceholderRepository implements PlaceholderRepositoryInterface {
   PlaceholderRepository({required this.placeholderDataSource});
 
   @override
-  Future<Either<Failure, Placeholder>> getPlaceholderData(
+  Future<Either<Failure, Placeholder>> getPlaceholderDataWithParams(
       String placeholderParam) async {
     try {
       final result = await placeholderDataSource
-          .getRemotePlaceholderData(placeholderParam);
+          .getRemotePlaceholderDataWithParam(placeholderParam);
       final placeHolderEntity = mapPlaceholderModelToPlaceholderEntity(result);
 
       return Right(placeHolderEntity);
@@ -36,5 +36,11 @@ class PlaceholderRepository implements PlaceholderRepositoryInterface {
         placeholderId: input.placeholderId,
         placeholderName: input.placeholderName,
         optionalPlaceholder: null);
+  }
+
+  @override
+  Future<Either<Failure, Placeholder>> getPlaceholderDataWithoutParams() {
+    // TODO: implement getPlaceholderDataWithoutParams
+    throw UnimplementedError();
   }
 }
