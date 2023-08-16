@@ -18,15 +18,16 @@ class _HomeControlsState extends State<HomeControls> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          const SizedBox(height: 30),
+          const SizedBox(height: 50),
           TextFormField(
             decoration: const InputDecoration(
                 filled: true,
-                hintText: 'ID',
+                hintText: '<some value>',
                 border: OutlineInputBorder(),
                 fillColor: Colors.white),
             key: const Key('id-input'),
           ),
+          const SizedBox(height: 50),
           SizedBox(
             height: 50,
             width: MediaQuery.of(context).size.width,
@@ -38,7 +39,7 @@ class _HomeControlsState extends State<HomeControls> {
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith(
                         (states) => Colors.green)),
-                child: const Text('ACTION',
+                child: const Text('<do something>',
                     style: TextStyle(color: Colors.white))),
           )
         ],

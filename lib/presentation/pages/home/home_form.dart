@@ -15,15 +15,22 @@ Widget homeFormView() {
     appBar: AppBar(
       centerTitle: true,
       iconTheme: const IconThemeData(color: Colors.blue),
-      title: const Text('Sign In', style: TextStyle(color: Colors.blue)),
+      title: const Text('Welcome!', style: TextStyle(color: Colors.blue)),
       backgroundColor: Colors.white,
       key: const Key('sign-in-title'),
     ),
     body: SafeArea(
       // child: buildBody(context)));
-      child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [const SizedBox(height: 10), HomeControls()]),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        const SizedBox(height: 30),
+        Image.asset(
+          'assets/images/Sabres.png',
+          height: 150,
+          width: 150,
+        ),
+        const SizedBox(height: 30),
+        HomeControls()
+      ]),
     ),
   );
 }
