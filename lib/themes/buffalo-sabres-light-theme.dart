@@ -5,4 +5,9 @@ ThemeData buffaloSabresLightTheme = ThemeData(
     useMaterial3: true,
     textTheme: const TextTheme(
       displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+    ),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+    ).copyWith(
+      primary: Colors.green,
     ));

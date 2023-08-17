@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/core/logging/custom_logger.dart';
 
 class HomeControls extends StatefulWidget {
   @override
@@ -8,8 +9,7 @@ class HomeControls extends StatefulWidget {
 
 class _HomeControlsState extends State<HomeControls> {
   final formGlobalKey = GlobalKey<FormState>();
-  String userNameInput = 'init';
-  String userPasswordInput = 'init';
+  String validIdInput = 'init';
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,7 @@ class _HomeControlsState extends State<HomeControls> {
                 hintText: '<some value>',
                 border: OutlineInputBorder(),
                 fillColor: Colors.white),
+            validator: (idInput),
             key: const Key('id-input'),
           ),
           const SizedBox(height: 50),
@@ -52,6 +53,13 @@ class _HomeControlsState extends State<HomeControls> {
     //context.read<AuthenticationBloc>().add(LoginSubmitted(userNameInput, userPasswordInput));
     // final authResult = context.read<AuthenticationBloc>().authUsecase(
     //     AuthParams(userName: userNameInput, password: userPasswordInput));
-    // logger.i(authResult);
+    CustomLogger.loggerNoStack.i('got a hit');
+  }
+
+  mixin InputValidationMixin {
+    bool isValidId(String idInput){
+      RegExp regex = new RegExp();
+      return regex.hasMatch(idInput);
+    }
   }
 }
