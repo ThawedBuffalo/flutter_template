@@ -27,13 +27,11 @@ class HomeControlsState extends State<HomeControls> with InputValidationMixin {
                 border: OutlineInputBorder(),
                 fillColor: Colors.white),
             key: const Key('input-data'),
-            validator: (inputData) {
-              if (isValidInputData(inputData!)) {
-                validIdInput = inputData;
-                return null;
-              } else {
-                return "Enter valid input";
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter some text...";
               }
+              return null;
             },
           ),
           const SizedBox(height: 50),
@@ -64,6 +62,13 @@ class HomeControlsState extends State<HomeControls> with InputValidationMixin {
     //context.read<AuthenticationBloc>().add(LoginSubmitted(userNameInput, userPasswordInput));
     // final authResult = context.read<AuthenticationBloc>().authUsecase(
     //     AuthParams(userName: userNameInput, password: userPasswordInput));
+    if (formGlobalKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Processing data...')),
+      );
+    }
+    
 
     CustomLogger.loggerNoStack.i('user entered: $validIdInput');
 
