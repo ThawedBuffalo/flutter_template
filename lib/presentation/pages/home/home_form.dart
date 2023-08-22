@@ -29,7 +29,7 @@ Widget homeFormView() {
           width: 150,
         ),
         const SizedBox(height: 30),
-        HomeControls()
+        const HomeControls()
       ]),
     ),
   );
