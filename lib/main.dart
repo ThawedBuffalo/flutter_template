@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/pages/home/home_page.dart';
+import 'package:flutter_template/presentation/pages/page-1/page-1.dart';
 import 'package:flutter_template/themes/buffalo-sabres-light-theme.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Placeholder Page',
       theme: buffaloSabresLightTheme,
-      home: HomePage(),
+      home: const Page1(),
     );
   }
 }

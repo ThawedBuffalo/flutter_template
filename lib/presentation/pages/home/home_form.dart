@@ -10,10 +10,7 @@ class HomeForm extends StatefulWidget {
   }
 }
 
-
-
 class HomeFormState extends State<HomeForm> {
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -47,7 +44,6 @@ class HomeFormState extends State<HomeForm> {
               }
               return null;
             },
-            style: ,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
