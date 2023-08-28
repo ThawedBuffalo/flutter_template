@@ -21,7 +21,7 @@ class _Page1State extends State<Page2> {
         body: const Center(
           // child: buildBody(context)));
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Text('some data shown')
+
 
 
           ]),
