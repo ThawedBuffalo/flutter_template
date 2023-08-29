@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 
-class Page2 extends StatefulWidget {
-  const Page2({super.key});
+class Page2 extends StatelessWidget {
+  Page2({Key? key, required this.productName}) : super(key: key);
 
-  @override
-  State<Page2> createState() => _Page1State();
-}
+  String productName;
 
-class _Page1State extends State<Page2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           iconTheme: const IconThemeData(color: Colors.blue),
-          title: const Text('Welcome!', style: TextStyle(color: Colors.blue)),
+          title: const Text(productName),
           backgroundColor: Colors.white,
           key: const Key('sign-in-title'),
         ),
-        body: const Center(
-          // child: buildBody(context)));
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-
-
-
-          ]),
-        ));
+        body: Container(
+          padding: const EdgeInsets.all(20.0),
+          child: ListView(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.account_balance_outlined),
+                title: Text(productName)
+              )
+            ],
+          )
+        )
+    );
   }
 }
