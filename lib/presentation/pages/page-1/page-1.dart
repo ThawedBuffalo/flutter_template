@@ -10,22 +10,8 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> {
-
   var _productName;
   final _productController = TextEditingController();
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   _productController.addListener(_updateProductName);
-  // }
-
-  void _updateProductName() {
-    setState(() {
-      _productName = _productController.text;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +19,8 @@ class _Page1State extends State<Page1> {
         appBar: AppBar(
           centerTitle: true,
           iconTheme: const IconThemeData(color: Colors.blue),
-          title: const Text('Page 1- Form', style: TextStyle(color: Colors.blue)),
+          title:
+              const Text('Page 1- Form', style: TextStyle(color: Colors.blue)),
           backgroundColor: Colors.white,
           key: const Key('sign-in-title'),
         ),
@@ -41,34 +28,31 @@ class _Page1State extends State<Page1> {
           padding: const EdgeInsets.all(20.0),
           child: ListView(
             children: [
-
               TextFormField(
                 controller: _productController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'product name',
                   icon: Icon(Icons.verified_user_outlined),
                   border: OutlineInputBorder(),
                 ),
               ),
-
+              const SizedBox(height: 20.0),
               OutlinedButton(
-                style: OutlinedButton.styleFrom(minimumSize: const Size(200, 50)),
+                style:
+                    OutlinedButton.styleFrom(minimumSize: const Size(200, 50)),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context){
-                        return Page2(productName: _productName,);
-                      },
-                    )
-                  );
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return Page2(
+                        productName: _productController.text,
+                      );
+                    },
+                  ));
                 }, // onPressed
-                child: const Text("Go To Form"),
+                child: const Text("Submit"),
               ),
             ],
           ),
-        )
-
-    );
+        ));
   }
 }
