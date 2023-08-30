@@ -1,25 +1,32 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class TextFormWidget extends StatelessWidget {
-
+  TextEditingController widgetController;
   String? title;
   IconData? leadingIcon, trailingIcon;
   Color? inputColor, iconColor;
 
-  TextFormWidget({
-    required this.title,
-    this.leadingIcon,
-    this.trailingIcon,
-    this.inputColor,
-    this.iconColor
-});
-
+  TextFormWidget(
+      {required this.widgetController,
+      required this.title,
+      this.leadingIcon = Icons.label,
+      this.trailingIcon = Icons.info,
+      this.inputColor,
+      this.iconColor});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: ,
+      child: TextFormField(
+        controller: widgetController,
+        decoration: InputDecoration(
+          labelText: title,
+          icon: Icon(leadingIcon),
+          border: const OutlineInputBorder(),
+        ),
+      ),
     );
   }
 }

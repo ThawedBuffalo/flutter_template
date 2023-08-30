@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/core/logging/custom_logger.dart';
+import 'package:flutter_template/presentation/pages/widgets/text-form-widget.dart';
 
 import '../page-2/page-2.dart';
 
@@ -12,6 +14,7 @@ class Page1 extends StatefulWidget {
 class _Page1State extends State<Page1> {
   var _productName;
   final _productController = TextEditingController();
+  bool _checkBox = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +31,22 @@ class _Page1State extends State<Page1> {
           padding: const EdgeInsets.all(20.0),
           child: ListView(
             children: [
-              TextFormField(
-                controller: _productController,
-                decoration: InputDecoration(
-                  labelText: 'product name',
-                  icon: Icon(Icons.verified_user_outlined),
-                  border: OutlineInputBorder(),
-                ),
+              TextFormWidget(
+                widgetController: _productController,
+                title: _productName,
+                leadingIcon: Icons.ac_unit_outlined, //dynamic icon
+              ),
+              const SizedBox(height: 20.0),
+              CheckboxListTile(
+                value: _checkBox,
+                title: const Text("Attribute"),
+                onChanged: (value) {
+                  setState(() {
+                    _checkBox = value!;
+                    CustomLogger.loggerNoStack.i('checkbox value: $_checkBox');
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.leading,
               ),
               const SizedBox(height: 20.0),
               OutlinedButton(
@@ -45,6 +57,7 @@ class _Page1State extends State<Page1> {
                     builder: (context) {
                       return Page2(
                         productName: _productController.text,
+                        checkboxValue: _checkBox,
                       );
                     },
                   ));
