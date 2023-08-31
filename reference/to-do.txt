@@ -5,8 +5,11 @@ HomePage:
     -theme styling
 
 Page 1- form:
-    -form with text entry input
-        -validate that only text entered and not null
+    -form with:
+        -text entry generic widget: validate that only text entered and not null
+        -checkbox generic widget
+        -radio button generic widget
+        -pull down selection generic widget
     -log inputs
     -submit button to pass into BLoC
     -pass and log inputs through each layer

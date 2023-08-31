@@ -4,6 +4,10 @@ import 'package:flutter_template/presentation/pages/widgets/text-form-widget.dar
 
 import '../page-2/page-2.dart';
 
+enum RadioTypeEnum {
+  option1, option2
+}
+
 class Page1 extends StatefulWidget {
   const Page1({super.key});
 
@@ -15,6 +19,8 @@ class _Page1State extends State<Page1> {
   var _productName;
   final _productController = TextEditingController();
   bool _checkBox = false;
+
+  RadioTypeEnum? _radioTypeEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +43,7 @@ class _Page1State extends State<Page1> {
                 leadingIcon: Icons.ac_unit_outlined, //dynamic icon
               ),
               const SizedBox(height: 20.0),
+              // TODO- create generic external widget
               CheckboxListTile(
                 value: _checkBox,
                 title: const Text("Attribute"),
@@ -48,6 +55,44 @@ class _Page1State extends State<Page1> {
                 },
                 controlAffinity: ListTileControlAffinity.leading,
               ),
+              const SizedBox(height: 20.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile<RadioTypeEnum>(
+                      contentPadding: const EdgeInsets.all(0.0),
+                        value: RadioTypeEnum.option1,
+                        groupValue: _radioTypeEnum,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                        dense: true,
+                        tileColor: Colors.deepPurple.shade50,
+                        title: Text(RadioTypeEnum.option1.name),
+                        onChanged: (value) {
+                          setState(() {
+                            _radioTypeEnum = value;
+                          });
+                        }),
+                  ),
+                  const SizedBox(width: 5.0,),
+                  Expanded(
+                    child: RadioListTile<RadioTypeEnum>(
+                        contentPadding: const EdgeInsets.all(0.0),
+                        value: RadioTypeEnum.option2,
+                        groupValue: _radioTypeEnum,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                        dense: true,
+                        tileColor: Colors.deepPurple.shade50,
+                        title: Text(RadioTypeEnum.option2.name),
+                        onChanged:  (value) {
+                          setState(() {
+                            _radioTypeEnum = value;
+                          });
+                        }),
+                  ),
+                ],
+              ),
+
+
               const SizedBox(height: 20.0),
               OutlinedButton(
                 style:
