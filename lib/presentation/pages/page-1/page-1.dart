@@ -98,6 +98,7 @@ class _Page1State extends State<Page1> {
                 style:
                     OutlinedButton.styleFrom(minimumSize: const Size(200, 50)),
                 onPressed: () {
+                  CustomLogger.loggerNoStack.i("INFO: just showing info...");
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
                       return Page2(
