@@ -1,10 +1,22 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+enum RadioButtonTypeEnum { EnumValue1, EnumValue2 }
 
 class RadioButtonWidget extends StatelessWidget {
-  const RadioButtonWidget({super.key});
+  RadioButtonWidget(
+      {Key? key,
+      required this.title,
+      required this.value,
+      required this.radioButtonTypeEnum})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    // TODO: implement build
+    throw UnimplementedError();
   }
+
+  String title;
+  RadioButtonTypeEnum value;
+  RadioButtonTypeEnum? radioButtonTypeEnum;
 }

@@ -24,3 +24,36 @@ Page 1- form:
 
 Page 2- details:
     -list view with tiles for each data element
+
+
+---
+
+Radio buttons:
+https://www.youtube.com/watch?v=JLdit0tnwp8&t=658s&ab_channel=CodingWithTea
+
+Dropdown button:
+https://www.youtube.com/watch?v=6_Azs3fq9O4&ab_channel=CodingWithTea
+
+Form validation/submittal:
+https://www.youtube.com/watch?v=BubDWUrbPQY&ab_channel=CodingWithTea
+
+Splash screen:
+https://www.geeksforgeeks.org/splash-screen-in-flutter/
+
+Flash package
+
+Routing
+
+Testing
+
+Riverpod / GetIt
+
+BLoC
+
+Firebase
+
+Transitions
+
+Dio Connectivity
+
+Error Handling
