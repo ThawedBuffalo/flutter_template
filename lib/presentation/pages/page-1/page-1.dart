@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/core/logging/custom_logger.dart';
+import 'package:flutter_template/presentation/pages/widgets/radio-button-widget.dart';
 import 'package:flutter_template/presentation/pages/widgets/text-form-widget.dart';
 
 import '../page-2/page-2.dart';
 
-enum RadioTypeEnum {
+enum RadioButtonTypeEnum {
   option1, option2
 }
 
@@ -20,7 +21,8 @@ class _Page1State extends State<Page1> {
   final _productController = TextEditingController();
   bool _checkBox = false;
 
-  RadioTypeEnum? _radioTypeEnum;
+  // define variables for radio button section
+  RadioButtonTypeEnum? _radioButtonTypeEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -58,37 +60,42 @@ class _Page1State extends State<Page1> {
               const SizedBox(height: 20.0),
               Row(
                 children: [
-                  Expanded(
-                    child: RadioListTile<RadioTypeEnum>(
-                      contentPadding: const EdgeInsets.all(0.0),
-                        value: RadioTypeEnum.option1,
-                        groupValue: _radioTypeEnum,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                        dense: true,
-                        tileColor: Colors.deepPurple.shade50,
-                        title: Text(RadioTypeEnum.option1.name),
-                        onChanged: (value) {
-                          setState(() {
-                            _radioTypeEnum = value;
-                          });
-                        }),
-                  ),
+                  // Expanded(
+                  //   child: RadioListTile<RadioTypeEnum>(
+                  //     contentPadding: const EdgeInsets.all(0.0),
+                  //       value: RadioTypeEnum.option1,
+                  //       groupValue: _radioTypeEnum,
+                  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                  //       dense: true,
+                  //       tileColor: Colors.deepPurple.shade50,
+                  //       title: Text(RadioTypeEnum.option1.name),
+                  //       onChanged: (value) {
+                  //         setState(() {
+                  //           _radioTypeEnum = value;
+                  //         });
+                  //       }),
+                  // ),
+                  RadioButtonWidget(
+                      title: Text(RadioButtonTypeEnum.option1.name),
+                      value: RadioButtonTypeEnum.option1,
+                      selectedRadioButtonType: _radioButtonTypeEnum,
+                      onChanged: (val) {
+                        setState(() {
+                          CustomLogger.loggerNoStack.i('user selected- $val');
+                          _radioButtonTypeEnum = val;
+                        });
+                      }),
                   const SizedBox(width: 5.0,),
-                  Expanded(
-                    child: RadioListTile<RadioTypeEnum>(
-                        contentPadding: const EdgeInsets.all(0.0),
-                        value: RadioTypeEnum.option2,
-                        groupValue: _radioTypeEnum,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                        dense: true,
-                        tileColor: Colors.deepPurple.shade50,
-                        title: Text(RadioTypeEnum.option2.name),
-                        onChanged:  (value) {
-                          setState(() {
-                            _radioTypeEnum = value;
-                          });
-                        }),
-                  ),
+                  RadioButtonWidget(
+                      title: Text(RadioButtonTypeEnum.option2.name),
+                      value: RadioButtonTypeEnum.option2,
+                      selectedRadioButtonType: _radioButtonTypeEnum,
+                      onChanged: (val) {
+                        setState(() {
+                          CustomLogger.loggerNoStack.i('user selected- $val');
+                          _radioButtonTypeEnum = val;
+                        });
+                      }),
                 ],
               ),
 
