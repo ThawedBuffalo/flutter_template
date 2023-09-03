@@ -7,7 +7,7 @@ class TextFormWidget extends StatelessWidget {
   Color? inputColor, iconColor;
 
   TextFormWidget(
-      {required this.widgetController,
+      {super.key, required this.widgetController,
       required this.title,
       this.leadingIcon = Icons.label,
       this.trailingIcon = Icons.info,

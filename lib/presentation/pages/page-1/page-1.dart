@@ -17,12 +17,21 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> {
+
+  _Page1State(){
+    _dropDownSelection = _dropDownList[0];
+  }
+
   var _productName;
   final _productController = TextEditingController();
   bool _checkBox = false;
 
   // define variables for radio button section
-  RadioButtonTypeEnum? _radioButtonTypeEnum;
+  List<String> optionsList = ['one', 'two','three'];
+
+  // define values for dropdown fields
+  final _dropDownList = ["Small", "Medium", "Large", "Xlarge"];
+  String? _dropDownSelection;
 
   @override
   Widget build(BuildContext context) {
@@ -60,46 +69,51 @@ class _Page1State extends State<Page1> {
               const SizedBox(height: 20.0),
               Row(
                 children: [
-                  // Expanded(
-                  //   child: RadioListTile<RadioTypeEnum>(
-                  //     contentPadding: const EdgeInsets.all(0.0),
-                  //       value: RadioTypeEnum.option1,
-                  //       groupValue: _radioTypeEnum,
-                  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                  //       dense: true,
-                  //       tileColor: Colors.deepPurple.shade50,
-                  //       title: Text(RadioTypeEnum.option1.name),
-                  //       onChanged: (value) {
-                  //         setState(() {
-                  //           _radioTypeEnum = value;
-                  //         });
-                  //       }),
-                  // ),
                   RadioButtonWidget(
                       title: Text(RadioButtonTypeEnum.option1.name),
-                      value: RadioButtonTypeEnum.option1,
-                      selectedRadioButtonType: _radioButtonTypeEnum,
-                      onChanged: (val) {
+                      optionValue: optionsList[0],
+                      optionsList: optionsList,
+                      onChanged: (value) {
                         setState(() {
                           CustomLogger.loggerNoStack.i('user selected- $val');
-                          _radioButtonTypeEnum = val;
+                          optionsList = value as List<String>;
                         });
                       }),
                   const SizedBox(width: 5.0,),
-                  RadioButtonWidget(
-                      title: Text(RadioButtonTypeEnum.option2.name),
-                      value: RadioButtonTypeEnum.option2,
-                      selectedRadioButtonType: _radioButtonTypeEnum,
-                      onChanged: (val) {
-                        setState(() {
-                          CustomLogger.loggerNoStack.i('user selected- $val');
-                          _radioButtonTypeEnum = val;
-                        });
-                      }),
+                  // RadioButtonWidget(
+                  //     title: Text(RadioButtonTypeEnum.option2.name),
+                  //     value: RadioButtonTypeEnum.option2,
+                  //     selectedRadioButtonType: _radioButtonTypeEnum,
+                  //     onChanged: (val) {
+                  //       setState(() {
+                  //         CustomLogger.loggerNoStack.i('user selected- $val');
+                  //         _radioButtonTypeEnum = val;
+                  //       });
+                  //     }),
                 ],
               ),
-
-
+              const SizedBox(height: 20.0),
+              DropdownButtonFormField(
+                  value: _dropDownSelection,
+                  items: _dropDownList.map(
+                          (e) => DropdownMenuItem(child: Text(e), value: e,)
+                  ).toList(),
+                  onChanged: (value){
+                    setState(() {
+                      _dropDownSelection = value as String;
+                    });
+                  },
+                  icon: const Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.deepPurple,
+                  ),
+                dropdownColor: Colors.deepPurple.shade50,
+                decoration: const InputDecoration(
+                  labelText: "Options",
+                  prefixIcon: Icon(Icons.account_balance),
+                  border: OutlineInputBorder()
+                ),
+              ),
               const SizedBox(height: 20.0),
               OutlinedButton(
                 style:

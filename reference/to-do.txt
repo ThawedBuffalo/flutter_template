@@ -28,8 +28,10 @@ Page 2- details:
 
 ---
 
-Radio buttons:
+!-Radio buttons:
 https://www.youtube.com/watch?v=JLdit0tnwp8&t=658s&ab_channel=CodingWithTea
+https://stackoverflow.com/questions/63895921/create-dynamic-radio-buttons-in-flutter
+
 
 Dropdown button:
 https://www.youtube.com/watch?v=6_Azs3fq9O4&ab_channel=CodingWithTea
