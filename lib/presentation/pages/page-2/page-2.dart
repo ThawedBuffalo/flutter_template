@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/presentation/pages/page-1/product-model.dart.dart';
 
 class Page2 extends StatelessWidget {
-  Page2({Key? key, required this.productName, required this.checkboxValue})
-      : super(key: key);
+  Page2({Key? key, required this.product}) : super(key: key);
 
-  String productName;
-  bool checkboxValue;
+  ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +23,8 @@ class Page2 extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(Icons.account_balance_outlined),
-                  title: Text(productName),
-                  subtitle: Text('checkbox value: $checkboxValue'),
+                  title: Text(product.name),
+                  subtitle: Text(product.description),
                 )
               ],
             )));
