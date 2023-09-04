@@ -7,7 +7,8 @@ class TextFormWidget extends StatelessWidget {
   Color? inputColor, iconColor;
 
   TextFormWidget(
-      {super.key, required this.widgetController,
+      {super.key,
+      required this.widgetController,
       required this.title,
       this.leadingIcon = Icons.label,
       this.trailingIcon = Icons.info,
@@ -19,6 +20,13 @@ class TextFormWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Enter some text';
+          } else {
+            null;
+          }
+        },
         controller: widgetController,
         decoration: InputDecoration(
           labelText: title,
