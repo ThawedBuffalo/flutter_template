@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/core/logging/custom_logger.dart';
-import 'package:flutter_template/presentation/pages/page-1/product-model.dart.dart';
+import 'package:flutter_template/data/models/product-model.dart.dart';
 import 'package:flutter_template/presentation/pages/widgets/radio-button-widget.dart';
 import 'package:flutter_template/presentation/pages/widgets/text-form-widget.dart';
 

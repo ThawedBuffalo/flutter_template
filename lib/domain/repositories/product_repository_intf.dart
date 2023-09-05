@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_template/presentation/pages/page-1/product-model.dart.dart';
+import 'package:flutter_template/data/models/product-model.dart.dart';
 
 import '../../core/error/failure.dart';
 import '../entities/placeholder.dart';

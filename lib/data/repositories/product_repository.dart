@@ -1,7 +1,7 @@
 // app specific imports
 import 'package:dartz/dartz.dart';
 import 'package:flutter_template/domain/repositories/product_repository_intf.dart';
-import 'package:flutter_template/presentation/pages/page-1/product-model.dart.dart';
+import 'package:flutter_template/data/models/product-model.dart.dart';
 
 import '../../core/error/exceptions.dart';
 import '../../core/error/failure.dart';
