@@ -39,6 +39,16 @@ https://www.youtube.com/watch?v=6_Azs3fq9O4&ab_channel=CodingWithTea
 x-Form validation/submittal:
 https://www.youtube.com/watch?v=BubDWUrbPQY&ab_channel=CodingWithTea
 
+BLoC
+https://medium.com/flutter-community/flutter-bloc-for-beginners-839e22adb9f5
+https://resocoder.com/2019/10/26/flutter-bloc-library-tutorial-1-0-0-stable-reactive-state-management/
+    -pass data through the layers in app
+    -mock repository to return api data
+    -make actual call to api to get sample data
+    -pass back up through layers to UI
+    -handle errors
+
+
 Splash screen:
 https://www.geeksforgeeks.org/splash-screen-in-flutter/
 
@@ -50,7 +60,7 @@ Testing
 
 Riverpod / GetIt
 
-BLoC
+
 
 Firebase
 
