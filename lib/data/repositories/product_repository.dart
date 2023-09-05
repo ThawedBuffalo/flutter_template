@@ -1,7 +1,8 @@
 // app specific imports
 import 'package:dartz/dartz.dart';
+import 'package:flutter_template/data/datasources/mock_product_local_data_source.dart';
 import 'package:flutter_template/domain/repositories/product_repository_intf.dart';
-import 'package:flutter_template/data/models/product-model.dart.dart';
+import 'package:flutter_template/data/models/product-model.dart';
 
 import '../../core/error/exceptions.dart';
 import '../../core/error/failure.dart';
@@ -10,35 +11,20 @@ import '../../domain/repositories/placeholder_repository_intf.dart';
 import '../datasources/placeholder_remote_data_source_intf.dart';
 import '../models/placeholder_model.dart';
 
-const String SERVER_FAILURE_MSG =
-    'server failure, please try again...';
+const String SERVER_FAILURE_MSG = 'server failure, please try again...';
 
 class ProductRepository implements ProductRepositoryInterface {
-  final PlaceholderRemoteDataSourceInterface placeholderDataSource;
+  final MockProductLocalDataSource dataSource;
 
-  ProductRepository({required this.placeholderDataSource});
+  ProductRepository({required this.dataSource});
 
   @override
-  Future<Either<Failure, ProductModel>> createProduct(ProductModel product) async {
+  Future<Either<Failure, ProductModel>> createProduct(
+      ProductModel product) async {
     // TODO: implement createProduct
-    try {
-      final result = await
-    }
-  }
 
-
-  @override
-  Future<Either<Failure, Placeholder>> getPlaceholderDataWithParams(
-      String placeholderParam) async {
-    try {
-      final result = await placeholderDataSource
-          .getRemotePlaceholderDataWithParam(placeholderParam);
-      final placeHolderEntity = mapPlaceholderModelToPlaceholderEntity(result);
-
-      return Right(placeHolderEntity);
-    } on PlaceholderException {
-      return Left(PlaceholderFailure(errorMessage: SERVER_FAILURE_MSG));
-    }
+    final result = await dataSource.createProduct(product);
+    return Right(result);
   }
 
   Placeholder mapPlaceholderModelToPlaceholderEntity(PlaceholderModel input) {
@@ -48,12 +34,4 @@ class ProductRepository implements ProductRepositoryInterface {
         placeholderName: input.placeholderName,
         optionalPlaceholder: null);
   }
-
-  @override
-  Future<Either<Failure, Placeholder>> getPlaceholderDataWithoutParams() {
-    // TODO: implement getPlaceholderDataWithoutParams
-    throw UnimplementedError();
-  }
-
-
 }

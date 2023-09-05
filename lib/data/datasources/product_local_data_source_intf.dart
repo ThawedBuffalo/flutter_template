@@ -1,6 +1,5 @@
-import '../models/product-model.dart.dart';
+import '../models/product-model.dart';
 
 abstract class ProductLocalDataSourceInterface {
-  Future<ProductModel> createProduct(
-      ProductModel product);
+  Future<ProductModel> createProduct(ProductModel product);
 }

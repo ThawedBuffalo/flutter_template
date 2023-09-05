@@ -1,10 +1,11 @@
-import 'dart:ffi';
-
 import 'package:equatable/equatable.dart';
 
-// entity is the logical model
+// NOTE: this file would normally live in the clean arch model layer, here just for demo
 
-class Product extends Equatable {
+// models are the direct mapping from repository/apis
+// entities are the logical models
+
+class ProductUserInputModel extends Equatable {
   final int id;
   final String name;
   final String description;
@@ -13,7 +14,7 @@ class Product extends Equatable {
   final String color;
   final String size;
 
-  const Product(
+  const ProductUserInputModel(
       {required this.id,
       required this.name,
       required this.description,
@@ -22,10 +23,10 @@ class Product extends Equatable {
       required this.color,
       required this.size});
 
-  factory Product.fromJson(Map<String, dynamic> jsonData) {
+  factory ProductUserInputModel.fromJson(Map<String, dynamic> jsonData) {
     Map<String, dynamic> jsonUserData = jsonData['data'];
 
-    return Product(
+    return ProductUserInputModel(
         id: jsonUserData['id'],
         name: jsonUserData['name'],
         description: jsonUserData['description'],

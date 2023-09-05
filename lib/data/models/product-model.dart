@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 // entities are the logical models
 
 class ProductModel extends Equatable {
+  final int id;
   final String name;
   final String description;
   final bool topSeller;
@@ -14,7 +15,8 @@ class ProductModel extends Equatable {
   final String size;
 
   const ProductModel(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.description,
       required this.topSeller,
       required this.topRated,
@@ -22,9 +24,10 @@ class ProductModel extends Equatable {
       required this.size});
 
   factory ProductModel.fromJson(Map<String, dynamic> jsonData) {
-    Map<String, dynamic> jsonUserData = jsonData['placeholder_jsontitle'];
+    Map<String, dynamic> jsonUserData = jsonData['data'];
 
     return ProductModel(
+        id: jsonUserData['id'],
         name: jsonUserData['name'],
         description: jsonUserData['description'],
         topSeller: jsonUserData['topSeller'],
@@ -35,6 +38,7 @@ class ProductModel extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'description': description,
       'topSeller': topSeller,
@@ -46,5 +50,5 @@ class ProductModel extends Equatable {
 
   @override
   List<Object?> get props =>
-      [name, description, topSeller, topRated, color, size];
+      [id, name, description, topSeller, topRated, color, size];
 }

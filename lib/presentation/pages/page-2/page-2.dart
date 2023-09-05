@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/data/models/product-model.dart.dart';
+import 'package:flutter_template/data/models/product-model.dart';
 
 class Page2 extends StatelessWidget {
   Page2({Key? key, required this.product}) : super(key: key);
