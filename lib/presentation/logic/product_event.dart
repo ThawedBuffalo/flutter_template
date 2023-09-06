@@ -5,7 +5,7 @@ abstract class ProductEvent extends Equatable {
 }
 
 class AddProductEvent extends ProductEvent {
-  final ProductModel productModel;
+  final ProductUserInputModel productModel;
   const AddProductEvent(this.productModel);
 
   @override
