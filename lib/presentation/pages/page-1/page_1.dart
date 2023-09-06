@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/core/logging/custom_logger.dart';
-import 'package:flutter_template/data/models/product-model.dart';
 import 'package:flutter_template/presentation/pages/widgets/radio-button-widget.dart';
 import 'package:flutter_template/presentation/pages/widgets/text-form-widget.dart';
 
+import '../../models/product-user-input-model.dart';
 import '../page-2/page-2.dart';
 
 class Page1 extends StatefulWidget {
@@ -24,10 +24,11 @@ class _Page1State extends State<Page1> {
   final _descriptionController = TextEditingController();
   bool _topSeller = false;
   bool _topRated = false;
-  var selectedColor;
+
 
   // define variables for radio button section
   List<String> colorOptions = ['blue', 'gold'];
+  String selectedColor = 'blue';
   int colorOptionsGroup = 1;
 
   // define values for dropdown fields
@@ -43,7 +44,7 @@ class _Page1State extends State<Page1> {
           centerTitle: true,
           iconTheme: const IconThemeData(color: Colors.blue),
           title:
-              const Text('Page 1- Form', style: TextStyle(color: Colors.blue)),
+              const Text('Add Product Form', style: TextStyle(color: Colors.blue)),
           backgroundColor: Colors.white,
           key: const Key('sign-in-title'),
         ),
@@ -91,7 +92,7 @@ class _Page1State extends State<Page1> {
                 ),
 
                 const SizedBox(height: 20.0),
-                Text('Select color:'),
+                const Text('Select color:'),
                 Row(
                   children: [
                     RadioButtonWidget(
@@ -128,8 +129,8 @@ class _Page1State extends State<Page1> {
                   value: _sizeSelected,
                   items: _sizeOptions
                       .map((e) => DropdownMenuItem(
-                            child: Text(e),
                             value: e,
+                            child: Text(e),
                           ))
                       .toList(),
                   onChanged: (value) {
@@ -156,20 +157,20 @@ class _Page1State extends State<Page1> {
                         .i("INFO: mapping user values to model, submitting...");
 
                     if (_formKey.currentState!.validate()) {
-                      ProductModel product = ProductModel(
+                      ProductUserInputModel product = ProductUserInputModel(
                           name: _productController.text,
                           description: _descriptionController.text,
                           topSeller: _topSeller,
                           topRated: _topRated,
                           color: selectedColor,
-                          size: _sizeSelected);
+                          size: _sizeSelected, id: 0);
 
                       var result = product.toJson();
                       CustomLogger.loggerNoStack.i("INFO: $result");
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
                           return Page2(
-                            product: product,
+                            product: null,
                           );
                         },
                       ));

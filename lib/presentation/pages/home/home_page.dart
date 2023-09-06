@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/pages/flash-demo/flash-home-page.dart';
-import 'package:flutter_template/presentation/pages/page-1/page-1.dart';
+import 'package:flutter_template/presentation/pages/page-1/page_1.dart';
 import '../../../core/logging/custom_logger.dart';
 
 class HomePage extends StatelessWidget {

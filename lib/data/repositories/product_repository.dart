@@ -3,7 +3,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_template/data/datasources/mock_product_local_data_source.dart';
 import 'package:flutter_template/domain/repositories/product_repository_intf.dart';
 import 'package:flutter_template/data/models/product-model.dart';
-
 import '../../core/error/exceptions.dart';
 import '../../core/error/failure.dart';
 import '../../domain/entities/placeholder.dart';

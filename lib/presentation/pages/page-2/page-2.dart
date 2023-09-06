@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/data/models/product-model.dart';
 
+import '../../../domain/entities/product.dart';
 class Page2 extends StatelessWidget {
   Page2({Key? key, required this.product}) : super(key: key);
 
-  ProductModel product;
+  Product product;
 
   @override
   Widget build(BuildContext context) {
