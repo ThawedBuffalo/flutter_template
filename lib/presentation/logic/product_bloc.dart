@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_template/core/helpers/dartz_x.dart';
 import 'package:flutter_template/data/models/product-model.dart';
 import 'package:flutter_template/presentation/models/product-user-input-model.dart';
 
 import '../../data/repositories/product_repository.dart';
-import '../../domain/entities/product.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
@@ -17,14 +16,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
   ProductBloc(this.productRepository) : super(ProductInitial());
 
-  @override
   Stream<ProductState> mapEventToState(ProductEvent event) async* {
     yield ProductAdding();
 
     if (event is AddProductEvent) {
       // map UI model to model
       final productEntity =
-          await _mapProductUserInputModelToEntity(event.productModel);
+          await _mapProductUserInputModelToModel(event.productUIModel);
       final result = await productRepository.createProduct(productEntity);
 
       if (result.isLeft()) {
@@ -35,9 +33,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     }
   }
 
-  Product _mapProductUserInputModelToEntity(ProductUserInputModel inputModel) {
+  Future<ProductModel> _mapProductUserInputModelToModel(ProductUserInputModel inputModel) async {
     // yeah, klunky for now
-    Product model = Product(
+    ProductModel productModel = ProductModel(
         id: inputModel.id,
         name: inputModel.name,
         description: inputModel.description,
@@ -46,6 +44,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         color: inputModel.color,
         size: inputModel.size);
 
-    return model;
+    return productModel;
   }
 }

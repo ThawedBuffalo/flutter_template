@@ -167,11 +167,12 @@ class _Page1State extends State<Page1> {
 
                       var result = product.toJson();
                       CustomLogger.loggerNoStack.i("INFO: $result");
+                      CustomLogger.loggerNoStack.i("INFO: calling BLoC to send event");
+
+
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return Page2(
-                            product: null,
-                          );
+                          return Page2();
                         },
                       ));
                     }
