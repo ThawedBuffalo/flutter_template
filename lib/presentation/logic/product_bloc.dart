@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_template/core/helpers/dartz_x.dart';
-import 'package:flutter_template/data/models/product-model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template/core/logging/custom_logger.dart';
+import 'package:flutter_template/core/utils/dartz_x.dart';
 import 'package:flutter_template/presentation/models/product-user-input-model.dart';
 
 import '../../data/repositories/product_repository.dart';
@@ -13,27 +13,42 @@ part 'product_event.dart';
 part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
+  ProductBloc({required this.productRepository}) : super(const ProductState()) {
+    on<AddProductEvent>(_mapAddProductEventToState);
+  }
+
   final ProductRepository productRepository;
 
-  ProductBloc(this.productRepository) : super(ProductInitial());
+  void _mapAddProductEventToState(
+      AddProductEvent event, Emitter<ProductState> emit) async {
+    emit(state.copyWith(status: ProductStatus.adding));
+    final productEntity = _mapProductUserInputModelToEntity(event.productModel);
 
-  @override
-  Stream<ProductState> mapEventToState(ProductEvent event) async* {
-    yield ProductAdding();
-
-    if (event is AddProductEvent) {
-      // map UI model to model
-      final productEntity =
-          await _mapProductUserInputModelToEntity(event.productModel);
-      final result = await productRepository.createProduct(productEntity);
-
-      if (result.isLeft()) {
-        yield const ProductError('error');
-      } else if (result.isRight()) {
-        yield ProductAdded(result.asRight());
-      }
+    // call repo
+    final result = await productRepository.createProduct(productEntity);
+    if (result.isLeft()) {
+      emit(state.copyWith(
+          status: ProductStatus.error,
+          description: 'issue from backend service'));
+    } else {
+      emit(state.copyWith(
+          status: ProductStatus.added,
+          description: 'new product added to list'));
     }
   }
+
+  // void _mapEventToState(ProductEvent event) async* {
+  //   emit ProductAdding();
+  //
+  //
+  //     // map UI model to model
+  //     final productEntity =
+  //         await _mapProductUserInputModelToEntity(event.productModel);
+  //
+  //
+
+  //
+  // }
 
   Product _mapProductUserInputModelToEntity(ProductUserInputModel inputModel) {
     // yeah, klunky for now

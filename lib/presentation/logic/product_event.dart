@@ -6,7 +6,8 @@ abstract class ProductEvent extends Equatable {
 
 class AddProductEvent extends ProductEvent {
   final ProductUserInputModel productModel;
-  const AddProductEvent(this.productModel);
+
+  const AddProductEvent({required this.productModel});
 
   @override
   // TODO: implement props

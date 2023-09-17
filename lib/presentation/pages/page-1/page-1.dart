@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/core/logging/custom_logger.dart';
-import 'package:flutter_template/data/models/product-model.dart';
+import 'package:flutter_template/data/datasources/mock_product_local_data_source.dart';
+import 'package:flutter_template/data/repositories/product_repository.dart';
+import 'package:flutter_template/presentation/logic/product_bloc.dart';
 import 'package:flutter_template/presentation/pages/widgets/radio-button-widget.dart';
 import 'package:flutter_template/presentation/pages/widgets/text-form-widget.dart';
 
-import '../page-2/page-2.dart';
+import '../../models/product-user-input-model.dart';
 
 class Page1 extends StatefulWidget {
   const Page1({super.key});
@@ -156,23 +159,31 @@ class _Page1State extends State<Page1> {
                         .i("INFO: mapping user values to model, submitting...");
 
                     if (_formKey.currentState!.validate()) {
-                      ProductModel product = ProductModel(
-                          name: _productController.text,
-                          description: _descriptionController.text,
-                          topSeller: _topSeller,
-                          topRated: _topRated,
-                          color: selectedColor,
-                          size: _sizeSelected);
+                      ProductUserInputModel productInput =
+                          ProductUserInputModel(
+                              name: _productController.text,
+                              description: _descriptionController.text,
+                              topSeller: _topSeller,
+                              topRated: _topRated,
+                              color: selectedColor,
+                              size: _sizeSelected,
+                              id: 001);
 
-                      var result = product.toJson();
+                      var result = productInput.toJson();
                       CustomLogger.loggerNoStack.i("INFO: $result");
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return Page2(
-                            product: product,
-                          );
-                        },
-                      ));
+
+                      // trigger event
+                      final productBloc = BlocProvider.of<ProductBloc>(context);
+                      productBloc
+                          .add(AddProductEvent(productModel: productInput));
+
+                      // Navigator.push(context, MaterialPageRoute(
+                      //   builder: (context) {
+                      //     return Page2(
+                      //       product: null,
+                      //     );
+                      //   },
+                      // ));
                     }
                   }, // onPressed
                   child: const Text("Add"),

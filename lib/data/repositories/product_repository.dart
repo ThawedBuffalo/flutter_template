@@ -7,6 +7,7 @@ import 'package:flutter_template/data/models/product-model.dart';
 import '../../core/error/exceptions.dart';
 import '../../core/error/failure.dart';
 import '../../domain/entities/placeholder.dart';
+import '../../domain/entities/product.dart';
 import '../../domain/repositories/placeholder_repository_intf.dart';
 import '../datasources/placeholder_remote_data_source_intf.dart';
 import '../models/placeholder_model.dart';
@@ -19,19 +20,36 @@ class ProductRepository implements ProductRepositoryInterface {
   ProductRepository({required this.dataSource});
 
   @override
-  Future<Either<Failure, ProductModel>> createProduct(
-      ProductModel product) async {
+  Future<Either<Failure, Product>> createProduct(Product product) async {
     // TODO: implement createProduct
 
-    final result = await dataSource.createProduct(product);
-    return Right(result);
+    final productModel =
+        await dataSource.createProduct(mapProductToProductModel(product));
+    final productEntity = await mapProductModelToProduct(productModel);
+    return Right(productEntity);
   }
 
-  Placeholder mapPlaceholderModelToPlaceholderEntity(PlaceholderModel input) {
+  Product mapProductModelToProduct(ProductModel input) {
     // copy the User model to the User entity
-    return Placeholder(
-        placeholderId: input.placeholderId,
-        placeholderName: input.placeholderName,
-        optionalPlaceholder: null);
+    return Product(
+        id: input.id,
+        name: input.name,
+        description: input.description,
+        topSeller: input.topSeller,
+        topRated: input.topRated,
+        color: input.color,
+        size: input.size);
+  }
+
+  ProductModel mapProductToProductModel(Product input) {
+    // copy the User model to the User entity
+    return ProductModel(
+        id: input.id,
+        name: input.name,
+        description: input.description,
+        topSeller: input.topSeller,
+        topRated: input.topRated,
+        color: input.color,
+        size: input.size);
   }
 }
