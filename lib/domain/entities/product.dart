@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:equatable/equatable.dart';
 
 // entity is the logical model
-
 class Product extends Equatable {
   final int id;
   final String name;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/data/models/product-model.dart';
 
+import '../../../domain/entities/product.dart';
 class Page2 extends StatelessWidget {
-  Page2({Key? key, required this.product}) : super(key: key);
-
-  ProductModel product;
+  //Page2({Key? key, required this.product}) : super(key: key);
+  Page2({Key? key}) : super(key: key);
+  //Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,12 @@ class Page2 extends StatelessWidget {
         body: Container(
             padding: const EdgeInsets.all(20.0),
             child: ListView(
-              children: [
+              children: const [
                 ListTile(
-                  leading: const Icon(Icons.account_balance_outlined),
-                  title: Text(product.name),
-                  subtitle: Text(product.description),
+                  leading: Icon(Icons.account_balance_outlined),
+                  title: Text("dummy"),
+                  //title: Text(product.name),
+                  //subtitle: Text(product.description),
                 )
               ],
             )));
