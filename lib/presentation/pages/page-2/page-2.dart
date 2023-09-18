@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/entities/product.dart';
+
 class Page2 extends StatelessWidget {
   //Page2({Key? key, required this.product}) : super(key: key);
-  Page2({Key? key}) : super(key: key);
+  Page2({Key? key, required product}) : super(key: key);
   //Product product;
 
   @override

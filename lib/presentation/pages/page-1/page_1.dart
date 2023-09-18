@@ -9,6 +9,7 @@ import 'package:flutter_template/presentation/pages/widgets/text-form-widget.dar
 
 import '../../logic/product_bloc.dart';
 import '../../models/product-user-input-model.dart';
+import '../page-2/page-2.dart';
 
 class Page1 extends StatefulWidget {
   const Page1({super.key});
@@ -59,6 +60,19 @@ class _Page1State extends State<Page1> {
                   buildError();
                 }
               },
+              child: BlocBuilder<ProductBloc, ProductState>(
+                  builder: (context, state) {
+                if (state.status.isInitial) {
+                  buildInitialInput();
+                } else if (state.status.isAdding) {
+                  buildLoading();
+                } else if (state.status.isAdded) {
+                  // toast message, then navigate
+                  navigateToDetailsPage();
+                }
+
+                return buildInitialInput();
+              }),
             )));
   }
 
@@ -184,14 +198,6 @@ class _Page1State extends State<Page1> {
                 // trigger event
                 final productBloc = BlocProvider.of<ProductBloc>(context);
                 productBloc.add(AddProductEvent(productModel: productInput));
-
-                // Navigator.push(context, MaterialPageRoute(
-                //   builder: (context) {
-                //     return Page2(
-                //       product: null,
-                //     );
-                //   },
-                // ));
               }
             }, // onPressed
             child: const Text("Add"),
@@ -209,5 +215,15 @@ class _Page1State extends State<Page1> {
 
   Widget buildError() {
     return const Placeholder();
+  }
+
+  void navigateToDetailsPage() {
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return Page2(
+          product: null,
+        );
+      },
+    ));
   }
 }
