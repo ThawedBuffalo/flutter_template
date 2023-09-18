@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/core/utils/app_bloc_observer.dart';
 import 'package:flutter_template/presentation/logic/product_bloc.dart';
 import 'package:flutter_template/presentation/pages/home/home_page.dart';
-import 'package:flutter_template/presentation/pages/home_old/home_page_old.dart';
-import 'package:flutter_template/themes/buffalo-sabres-light-theme.dart';
 
 import 'data/datasources/mock_product_local_data_source.dart';
 import 'data/repositories/product_repository.dart';

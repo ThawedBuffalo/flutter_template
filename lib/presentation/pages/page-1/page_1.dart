@@ -7,6 +7,7 @@ import 'package:flutter_template/presentation/logic/product_bloc.dart';
 import 'package:flutter_template/presentation/pages/widgets/radio-button-widget.dart';
 import 'package:flutter_template/presentation/pages/widgets/text-form-widget.dart';
 
+import '../../logic/product_bloc.dart';
 import '../../models/product-user-input-model.dart';
 
 class Page1 extends StatefulWidget {
@@ -51,146 +52,162 @@ class _Page1State extends State<Page1> {
           key: const Key('sign-in-title'),
         ),
         body: Container(
-          padding: const EdgeInsets.all(20.0),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              children: [
-                TextFormWidget(
-                  widgetController: _productController,
-                  title: _productName,
-                  leadingIcon: Icons.ac_unit_outlined, //dynamic icon
-                ),
-                const SizedBox(height: 20.0),
-                TextFormWidget(
-                  widgetController: _descriptionController,
-                  title: _productDescription,
-                  leadingIcon: Icons.shopping_bag_outlined, //dynamic icon
-                ),
-                const SizedBox(height: 20.0),
-                // TODO- create generic external widget
-                CheckboxListTile(
-                  value: _topSeller,
-                  title: const Text("Top Seller"),
-                  onChanged: (value) {
-                    setState(() {
-                      _topSeller = value!;
-                      CustomLogger.loggerNoStack.i('top seller: $_topSeller');
-                    });
-                  },
-                  controlAffinity: ListTileControlAffinity.leading,
-                ),
-                //const SizedBox(height: 10.0),
-                CheckboxListTile(
-                  value: _topRated,
-                  title: const Text("Top Rated"),
-                  onChanged: (value) {
-                    setState(() {
-                      _topRated = value!;
-                      CustomLogger.loggerNoStack.i('top rated: $_topRated');
-                    });
-                  },
-                  controlAffinity: ListTileControlAffinity.leading,
-                ),
+            padding: const EdgeInsets.all(20.0),
+            child: BlocListener<ProductBloc, ProductState>(
+              listener: (context, state) {
+                if (state.status.isError) {
+                  buildError();
+                }
+              },
+            )));
+  }
 
-                const SizedBox(height: 20.0),
-                Text('Select color:'),
-                Row(
-                  children: [
-                    RadioButtonWidget(
-                        title: Text(colorOptions[0]),
-                        value: 0,
-                        groupValue: colorOptionsGroup,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedColor = colorOptions[value];
-                            CustomLogger.loggerNoStack.i(
-                                'user selected value- ->$value<-, item ->$selectedColor<-');
-                            colorOptionsGroup = value;
-                          });
-                        }),
-                    const SizedBox(
-                      width: 5.0,
-                    ),
-                    RadioButtonWidget(
-                        title: Text(colorOptions[1]),
-                        value: 1,
-                        groupValue: colorOptionsGroup,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedColor = colorOptions[value];
-                            CustomLogger.loggerNoStack.i(
-                                'user selected value- ->$value<-, item ->$selectedColor<-');
-                            colorOptionsGroup = value;
-                          });
-                        }),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
-                DropdownButtonFormField(
-                  value: _sizeSelected,
-                  items: _sizeOptions
-                      .map((e) => DropdownMenuItem(
-                            child: Text(e),
-                            value: e,
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _sizeSelected = value as String;
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.arrow_drop_down_circle,
-                    color: Colors.deepPurple,
-                  ),
-                  dropdownColor: Colors.deepPurple.shade50,
-                  decoration: const InputDecoration(
-                      labelText: "Select size:",
-                      prefixIcon: Icon(Icons.account_balance),
-                      border: OutlineInputBorder()),
-                ),
-                const SizedBox(height: 20.0),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(200, 50)),
-                  onPressed: () {
-                    CustomLogger.loggerNoStack
-                        .i("INFO: mapping user values to model, submitting...");
-
-                    if (_formKey.currentState!.validate()) {
-                      ProductUserInputModel productInput =
-                          ProductUserInputModel(
-                              name: _productController.text,
-                              description: _descriptionController.text,
-                              topSeller: _topSeller,
-                              topRated: _topRated,
-                              color: selectedColor,
-                              size: _sizeSelected,
-                              id: 001);
-
-                      var result = productInput.toJson();
-                      CustomLogger.loggerNoStack.i("INFO: $result");
-
-                      // trigger event
-                      final productBloc = BlocProvider.of<ProductBloc>(context);
-                      productBloc
-                          .add(AddProductEvent(productModel: productInput));
-
-                      // Navigator.push(context, MaterialPageRoute(
-                      //   builder: (context) {
-                      //     return Page2(
-                      //       product: null,
-                      //     );
-                      //   },
-                      // ));
-                    }
-                  }, // onPressed
-                  child: const Text("Add"),
-                ),
-              ],
-            ),
+  Widget buildInitialInput() {
+    return Form(
+      key: _formKey,
+      child: ListView(
+        children: [
+          TextFormWidget(
+            widgetController: _productController,
+            title: _productName,
+            leadingIcon: Icons.ac_unit_outlined, //dynamic icon
           ),
-        ));
+          const SizedBox(height: 20.0),
+          TextFormWidget(
+            widgetController: _descriptionController,
+            title: _productDescription,
+            leadingIcon: Icons.shopping_bag_outlined, //dynamic icon
+          ),
+          const SizedBox(height: 20.0),
+          // TODO- create generic external widget
+          CheckboxListTile(
+            value: _topSeller,
+            title: const Text("Top Seller"),
+            onChanged: (value) {
+              setState(() {
+                _topSeller = value!;
+                CustomLogger.loggerNoStack.i('top seller: $_topSeller');
+              });
+            },
+            controlAffinity: ListTileControlAffinity.leading,
+          ),
+          //const SizedBox(height: 10.0),
+          CheckboxListTile(
+            value: _topRated,
+            title: const Text("Top Rated"),
+            onChanged: (value) {
+              setState(() {
+                _topRated = value!;
+                CustomLogger.loggerNoStack.i('top rated: $_topRated');
+              });
+            },
+            controlAffinity: ListTileControlAffinity.leading,
+          ),
+
+          const SizedBox(height: 20.0),
+          Text('Select color:'),
+          Row(
+            children: [
+              RadioButtonWidget(
+                  title: Text(colorOptions[0]),
+                  value: 0,
+                  groupValue: colorOptionsGroup,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedColor = colorOptions[value];
+                      CustomLogger.loggerNoStack.i(
+                          'user selected value- ->$value<-, item ->$selectedColor<-');
+                      colorOptionsGroup = value;
+                    });
+                  }),
+              const SizedBox(
+                width: 5.0,
+              ),
+              RadioButtonWidget(
+                  title: Text(colorOptions[1]),
+                  value: 1,
+                  groupValue: colorOptionsGroup,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedColor = colorOptions[value];
+                      CustomLogger.loggerNoStack.i(
+                          'user selected value- ->$value<-, item ->$selectedColor<-');
+                      colorOptionsGroup = value;
+                    });
+                  }),
+            ],
+          ),
+          const SizedBox(height: 20.0),
+          DropdownButtonFormField(
+            value: _sizeSelected,
+            items: _sizeOptions
+                .map((e) => DropdownMenuItem(
+                      child: Text(e),
+                      value: e,
+                    ))
+                .toList(),
+            onChanged: (value) {
+              setState(() {
+                _sizeSelected = value as String;
+              });
+            },
+            icon: const Icon(
+              Icons.arrow_drop_down_circle,
+              color: Colors.deepPurple,
+            ),
+            dropdownColor: Colors.deepPurple.shade50,
+            decoration: const InputDecoration(
+                labelText: "Select size:",
+                prefixIcon: Icon(Icons.account_balance),
+                border: OutlineInputBorder()),
+          ),
+          const SizedBox(height: 20.0),
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(minimumSize: const Size(200, 50)),
+            onPressed: () {
+              CustomLogger.loggerNoStack
+                  .i("INFO: mapping user values to model, submitting...");
+
+              if (_formKey.currentState!.validate()) {
+                ProductUserInputModel productInput = ProductUserInputModel(
+                    name: _productController.text,
+                    description: _descriptionController.text,
+                    topSeller: _topSeller,
+                    topRated: _topRated,
+                    color: selectedColor,
+                    size: _sizeSelected,
+                    id: 001);
+
+                var result = productInput.toJson();
+                CustomLogger.loggerNoStack.i("INFO: $result");
+
+                // trigger event
+                final productBloc = BlocProvider.of<ProductBloc>(context);
+                productBloc.add(AddProductEvent(productModel: productInput));
+
+                // Navigator.push(context, MaterialPageRoute(
+                //   builder: (context) {
+                //     return Page2(
+                //       product: null,
+                //     );
+                //   },
+                // ));
+              }
+            }, // onPressed
+            child: const Text("Add"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildLoading() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget buildError() {
+    return const Placeholder();
   }
 }
