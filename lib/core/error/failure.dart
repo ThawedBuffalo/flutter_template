@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {}
 
-class PlaceholderFailure extends Failure {
+class DataFailure extends Failure {
   final String errorMessage;
 
-  PlaceholderFailure({required this.errorMessage});
+  DataFailure({required this.errorMessage});
 
   @override
   List<Object?> get props => [errorMessage];

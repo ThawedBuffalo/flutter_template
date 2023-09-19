@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_template/core/logging/custom_logger.dart';
 import 'package:flutter_template/data/datasources/mock_product_local_data_source.dart';
 import 'package:flutter_template/data/repositories/product_repository.dart';
 import 'package:flutter_template/presentation/logic/product_bloc.dart';
+import 'package:flutter_template/presentation/pages/error/error-page.dart';
 import 'package:flutter_template/presentation/pages/widgets/radio-button-widget.dart';
 import 'package:flutter_template/presentation/pages/widgets/text-form-widget.dart';
 
@@ -62,13 +64,13 @@ class _Page1State extends State<Page1> {
               },
               child: BlocBuilder<ProductBloc, ProductState>(
                   builder: (context, state) {
-                if (state.status.isInitial) {
-                  buildInitialInput();
-                } else if (state.status.isAdding) {
+                if (state.status.isAdding) {
                   buildLoading();
                 } else if (state.status.isAdded) {
                   // toast message, then navigate
                   navigateToDetailsPage();
+                } else if (state.status.isError) {
+                  navigateToErrorPage();
                 }
 
                 return buildInitialInput();
@@ -218,12 +220,22 @@ class _Page1State extends State<Page1> {
   }
 
   void navigateToDetailsPage() {
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return Page2(
-          product: null,
-        );
-      },
-    ));
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return Page2();
+        },
+      ));
+    });
+  }
+
+  void navigateToErrorPage() {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return const ErrorPage();
+        },
+      ));
+    });
   }
 }

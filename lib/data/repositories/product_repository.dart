@@ -22,10 +22,15 @@ class ProductRepository implements ProductRepositoryInterface {
   Future<Either<Failure, Product>> createProduct(Product product) async {
     // TODO: implement createProduct
 
-    final productModel =
-        await dataSource.createProduct(mapProductToProductModel(product));
-    final productEntity = await mapProductModelToProduct(productModel);
-    return Right(productEntity);
+    try {
+      final productModel =
+          await dataSource.createProduct(mapProductToProductModel(product));
+
+      final productEntity = mapProductModelToProduct(productModel);
+      return Right(productEntity);
+    } on DataException {
+      return Left(DataFailure(errorMessage: 'bad response from data server'));
+    }
   }
 
   Product mapProductModelToProduct(ProductModel input) {
