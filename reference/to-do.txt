@@ -39,14 +39,17 @@ https://www.youtube.com/watch?v=6_Azs3fq9O4&ab_channel=CodingWithTea
 x-Form validation/submittal:
 https://www.youtube.com/watch?v=BubDWUrbPQY&ab_channel=CodingWithTea
 
-BLoC
+?-BLoC
 https://medium.com/flutter-community/flutter-bloc-for-beginners-839e22adb9f5
 https://resocoder.com/2019/10/26/flutter-bloc-library-tutorial-1-0-0-stable-reactive-state-management/
-    -pass data through the layers in app
-    -mock repository to return api data
+    x-pass data through the layers in app
+    x-mock repository to return api data
     -make actual call to api to get sample data
-    -pass back up through layers to UI
-    -handle errors
+    x-pass back up through layers to UI
+    x-handle errors
+
+Fetch API data from opensource web
+https://blog.codemagic.io/rest-api-in-flutter/#:~:text=There%20are%20a%20few%20steps,that%20stores%20URLs%20and%20endpoints.
 
 
 Splash screen:
